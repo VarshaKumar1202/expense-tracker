@@ -123,7 +123,7 @@ export function ExpenseSummary({
   );
 
   return (
-    <div className="grid grid-cols-3 gap-4">
+    <div className="grid grid-cols-1 lg:grid-cols-3 gap-4">
       <SummaryCard
         label="Total This Month"
         value={fmt(totalThisMonth)}
@@ -143,8 +143,8 @@ export function ExpenseSummary({
         subText={topCategory ? `${fmt(topCategory[1])} spent` : "No data"}
       />
 
-      <div className="col-span-3 grid grid-cols-5 gap-4">
-        <div className="col-span-3 bg-card rounded-2xl p-6 border border-border">
+      <div className="col-span-1 lg:col-span-3 grid grid-cols-1 lg:grid-cols-5 gap-4">
+        <div className="lg:col-span-3 bg-card rounded-2xl p-6 border border-border">
           <div className="mb-6">
             <h2 className="text-foreground">Monthly Spending</h2>
             <p style={{ fontSize: "0.8rem" }} className="text-muted-foreground">
@@ -192,7 +192,7 @@ export function ExpenseSummary({
           </ResponsiveContainer>
         </div>
 
-        <div className="col-span-2 bg-card rounded-2xl p-6 border border-border overflow-hidden">
+        <div className="lg:col-span-2 bg-card rounded-2xl p-6 border border-border overflow-hidden">
           <div className="flex items-center justify-between mb-1">
             <h2 className="text-foreground">By Category</h2>
             <button

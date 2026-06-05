@@ -47,13 +47,13 @@ export function ExpenseTable({
 }: ExpenseTableProps) {
   return (
     <div className="bg-card rounded-2xl border border-border overflow-hidden">
-      <div className="flex flex-wrap items-center gap-2.5 px-6 py-4 border-b border-border">
+      <div className="flex flex-col gap-3 sm:flex-row sm:flex-wrap sm:items-center gap-2.5 px-6 py-4 border-b border-border">
         <h2 className="text-foreground mr-auto">All Expenses</h2>
 
         <select
           value={filterCategory}
           onChange={(event) => setFilterCategory(event.target.value)}
-          className="bg-muted border-0 rounded-lg px-3 py-1.5 focus:outline-none cursor-pointer"
+          className="w-full sm:w-auto bg-muted border-0 rounded-lg px-3 py-1.5 focus:outline-none cursor-pointer"
           style={{ fontSize: "0.82rem" }}
         >
           <option value="all">All Categories</option>
@@ -67,7 +67,7 @@ export function ExpenseTable({
         <select
           value={filterRange}
           onChange={(event) => setFilterRange(event.target.value as ExpenseTableProps["filterRange"])}
-          className="bg-muted border-0 rounded-lg px-3 py-1.5 focus:outline-none cursor-pointer"
+          className="w-full sm:w-auto bg-muted border-0 rounded-lg px-3 py-1.5 focus:outline-none cursor-pointer"
           style={{ fontSize: "0.82rem" }}
         >
           <option value="this-month">This Month</option>
@@ -78,7 +78,7 @@ export function ExpenseTable({
 
         <button
           onClick={onExport}
-          className="flex items-center gap-1.5 bg-muted hover:bg-secondary transition-colors rounded-lg px-3 py-1.5"
+          className="w-full sm:w-auto flex items-center justify-center gap-1.5 bg-muted hover:bg-secondary transition-colors rounded-lg px-3 py-1.5"
           style={{ fontSize: "0.82rem" }}
         >
           <Download size={13} />
@@ -87,7 +87,7 @@ export function ExpenseTable({
       </div>
 
       {filterRange === "custom" && (
-        <div className="flex items-center gap-3 px-6 py-3 bg-muted/40 border-b border-border">
+        <div className="flex flex-col gap-3 sm:flex-row sm:items-center px-6 py-3 bg-muted/40 border-b border-border">
           <span style={{ fontSize: "0.82rem" }} className="text-muted-foreground">
             From
           </span>
@@ -95,7 +95,7 @@ export function ExpenseTable({
             type="date"
             value={customStart}
             onChange={(event) => setCustomStart(event.target.value)}
-            className="bg-card border border-border rounded-lg px-3 py-1.5 focus:outline-none focus:ring-2 focus:ring-accent/30"
+            className="w-full sm:w-auto bg-card border border-border rounded-lg px-3 py-1.5 focus:outline-none focus:ring-2 focus:ring-accent/30"
             style={{ fontSize: "0.82rem" }}
           />
           <span style={{ fontSize: "0.82rem" }} className="text-muted-foreground">
@@ -105,7 +105,7 @@ export function ExpenseTable({
             type="date"
             value={customEnd}
             onChange={(event) => setCustomEnd(event.target.value)}
-            className="bg-card border border-border rounded-lg px-3 py-1.5 focus:outline-none focus:ring-2 focus:ring-accent/30"
+            className="w-full sm:w-auto bg-card border border-border rounded-lg px-3 py-1.5 focus:outline-none focus:ring-2 focus:ring-accent/30"
             style={{ fontSize: "0.82rem" }}
           />
         </div>

@@ -11,6 +11,14 @@ function toMonthKey(date: Date) {
   return `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, "0")}`;
 }
 
+function getGreeting(): string {
+  const hour = new Date().getHours();
+  if (hour < 12) return "Good morning";
+  if (hour < 17) return "Good afternoon";
+  if (hour < 21) return "Good evening";
+  return "Good night";
+}
+
 export function ExpenseTracker() {
   const [expenses, setExpenses] = useState<Expense[]>([]);
   const [showModal, setShowModal] = useState(false);
@@ -155,24 +163,24 @@ export function ExpenseTracker() {
 
   return (
     <div className="min-h-screen bg-background overflow-y-auto">
-      <header className="px-8 pt-8 pb-2 max-w-6xl mx-auto">
-        <div className="flex items-end justify-between">
+      <header className="px-4 sm:px-8 pt-8 pb-2 max-w-6xl mx-auto">
+        <div className="flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
           <div>
             <p style={{ fontSize: "0.85rem" }} className="text-muted-foreground mb-0.5">
-              Good morning, John Doe 👋
+              {getGreeting()}, John Doe 👋
             </p>
             <h1 className="text-foreground">June 2026</h1>
           </div>
           <button
             onClick={handleAddExpense}
-            className="flex items-center gap-2 bg-accent text-accent-foreground rounded-xl px-4 py-2.5 hover:opacity-90 transition-opacity"
+            className="w-full sm:w-auto flex items-center justify-center gap-2 bg-accent text-accent-foreground rounded-xl px-4 py-2.5 hover:opacity-90 transition-opacity"
           >
             Add Expense
           </button>
         </div>
       </header>
 
-      <main className="px-8 pt-5 pb-10 space-y-5 max-w-6xl mx-auto">
+      <main className="px-4 sm:px-8 pt-5 pb-10 space-y-5 max-w-6xl mx-auto">
         {error && (
           <div className="rounded-2xl border border-destructive bg-destructive/10 px-6 py-4 text-destructive">
             {error}

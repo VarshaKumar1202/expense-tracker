@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import { useForm } from "react-hook-form";
-import { X } from "lucide-react";
+import { X } from "./icons";
 import type { Expense } from "../api";
 
 export const CATEGORIES = ["Food", "Transport", "Bills", "Entertainment", "Housing", "Shopping", "Other"] as const;

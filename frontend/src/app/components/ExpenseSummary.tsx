@@ -17,34 +17,12 @@ import {
   ArrowDownRight,
   ArrowUpRight,
   Check,
-  Home,
-  Music,
-  ShoppingBag,
-  ShoppingCart,
   Tag,
   Zap,
-} from "lucide-react";
+  CATEGORY_COLORS,
+  CATEGORY_ICONS,
+} from "./icons";
 import { CATEGORIES } from "./ExpenseModal";
-
-const CATEGORY_COLORS: Record<string, string> = {
-  Food: "#4f6ef7",
-  Transport: "#f59e0b",
-  Bills: "#7c9ef5",
-  Entertainment: "#a78bfa",
-  Housing: "#22c55e",
-  Shopping: "#ef4444",
-  Other: "#94a3b8",
-};
-
-const CATEGORY_ICONS: Record<string, React.ComponentType<{ size?: number; style?: React.CSSProperties }>> = {
-  Food: ShoppingCart,
-  Transport: Zap,
-  Bills: Home,
-  Entertainment: Music,
-  Housing: ShoppingBag,
-  Shopping: ShoppingBag,
-  Other: Tag,
-};
 
 export const DEFAULT_BUDGETS: Record<string, number> = {
   Food: 800,
@@ -259,12 +237,13 @@ export function ExpenseSummary({
                   return (
                     <div key={category.name}>
                       <div className="flex items-center justify-between mb-1">
-                        <div className="flex items-center gap-1.5">
-                          <div className="w-2 h-2 rounded-sm shrink-0" style={{ background: category.color }} />
-                          <span style={{ fontSize: "0.78rem" }} className="text-foreground">
-                            {category.name}
-                          </span>
-                        </div>
+                        <div className="flex items-center gap-2">
+                            <Icon size={16} style={{ color: category.color }} />
+                            <span className="w-2 h-2 rounded-sm shrink-0" style={{ background: category.color }} />
+                            <span style={{ fontSize: "0.78rem" }} className="text-foreground">
+                              {category.name}
+                            </span>
+                          </div>
                         {editingBudgets ? (
                           <div className="flex items-center gap-1">
                             <span style={{ fontSize: "0.72rem" }} className="text-muted-foreground">

@@ -1,6 +1,6 @@
 import type { Expense } from "../api";
 import { CATEGORIES } from "./ExpenseModal";
-import { Pencil, Tag, Trash2, Download } from "lucide-react";
+import { CATEGORY_COLORS, CATEGORY_ICONS, Pencil, Tag, Trash2, Download } from "./icons";
 
 interface ExpenseTableProps {
   filteredExpenses: Expense[];
@@ -127,9 +127,12 @@ export function ExpenseTable({
             >
               <div
                 className="w-9 h-9 rounded-xl flex items-center justify-center shrink-0"
-                style={{ background: "rgba(79, 110, 247, 0.12)" }}
+                style={{ background: CATEGORY_COLORS[expense.category] ? `${CATEGORY_COLORS[expense.category]}20` : "rgba(79, 110, 247, 0.12)" }}
               >
-                <Tag size={15} />
+                {(() => {
+                  const CategoryIcon = CATEGORY_ICONS[expense.category] ?? Tag;
+                  return <CategoryIcon size={15} style={{ color: CATEGORY_COLORS[expense.category] ?? "#4f6ef7" }} />;
+                })()}
               </div>
 
               <div className="flex-1 min-w-0">

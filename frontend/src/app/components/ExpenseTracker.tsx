@@ -159,7 +159,7 @@ export function ExpenseTracker() {
         <div className="flex items-end justify-between">
           <div>
             <p style={{ fontSize: "0.85rem" }} className="text-muted-foreground mb-0.5">
-              Good morning, Alex 👋
+              Good morning, John Doe 👋
             </p>
             <h1 className="text-foreground">June 2026</h1>
           </div>

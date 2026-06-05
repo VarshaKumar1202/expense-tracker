@@ -1,0 +1,135 @@
+:root {
+  color-scheme: light;
+  font-family: Inter, system-ui, sans-serif;
+  background: #f6f8fb;
+  color: #1f2937;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  padding: 24px;
+  background: linear-gradient(180deg, #f8fafc 0%, #eef2ff 100%);
+}
+
+.app-shell {
+  margin: 0 auto;
+  max-width: 720px;
+  padding: 24px;
+  background: white;
+  border-radius: 20px;
+  box-shadow: 0 24px 60px rgba(15, 23, 42, 0.08);
+}
+
+.app-header {
+  margin-bottom: 24px;
+}
+
+.app-header h1 {
+  margin: 0;
+  font-size: clamp(2rem, 2.5vw, 2.75rem);
+}
+
+.app-header p {
+  margin: 10px 0 0;
+  color: #475569;
+}
+
+.expense-form,
+.expense-card {
+  background: #f8fafc;
+  border-radius: 16px;
+  border: 1px solid #e2e8f0;
+  padding: 18px;
+}
+
+.expense-form {
+  margin-bottom: 20px;
+}
+
+.field-row {
+  display: grid;
+  gap: 8px;
+  margin-bottom: 14px;
+}
+
+.field-row label {
+  font-size: 0.95rem;
+  font-weight: 600;
+}
+
+.field-row input {
+  border: 1px solid #cbd5e1;
+  border-radius: 12px;
+  padding: 10px 12px;
+  font-size: 1rem;
+}
+
+.primary-button,
+.danger-button {
+  border: none;
+  border-radius: 12px;
+  cursor: pointer;
+  font-weight: 700;
+  padding: 12px 16px;
+}
+
+.primary-button {
+  background: #4338ca;
+  color: white;
+  width: 100%;
+}
+
+.danger-button {
+  background: #ef4444;
+  color: white;
+}
+
+.expense-list {
+  display: grid;
+  gap: 14px;
+}
+
+.expense-card {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 16px;
+}
+
+.expense-card h2 {
+  margin: 0 0 6px;
+  font-size: 1rem;
+}
+
+.expense-card p {
+  margin: 0;
+  color: #64748b;
+}
+
+.expense-details {
+  display: grid;
+  gap: 10px;
+  text-align: right;
+}
+
+.status-message,
+.error-message {
+  margin: 20px 0;
+  padding: 14px 16px;
+  border-radius: 14px;
+}
+
+.status-message {
+  background: #eff6ff;
+  color: #1e3a8a;
+}
+
+.error-message {
+  background: #fee2e2;
+  color: #b91c1c;
+}

@@ -1,0 +1,14 @@
+[
+  {
+    "id": "1",
+    "description": "Coffee",
+    "amount": 3.5,
+    "date": "2026-06-05"
+  },
+  {
+    "id": "2",
+    "description": "Office supplies",
+    "amount": 24.99,
+    "date": "2026-06-04"
+  }
+]

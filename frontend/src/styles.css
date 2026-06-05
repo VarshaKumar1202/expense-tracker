@@ -1,8 +1,9 @@
 :root {
   color-scheme: light;
   font-family: Inter, system-ui, sans-serif;
-  background: #f6f8fb;
-  color: #1f2937;
+  background: #fffdf2;
+  color: #050505;
+  font-weight: 600;
 }
 
 * {
@@ -12,124 +13,300 @@
 body {
   margin: 0;
   min-height: 100vh;
-  padding: 24px;
-  background: linear-gradient(180deg, #f8fafc 0%, #eef2ff 100%);
+  padding: 40px;
+  background: radial-gradient(circle at top, #f7f2e8 0%, #fff9f0 50%, #fff 100%);
+}
+
+button,
+input {
+  font: inherit;
 }
 
 .app-shell {
   margin: 0 auto;
-  max-width: 720px;
-  padding: 24px;
-  background: white;
-  border-radius: 20px;
-  box-shadow: 0 24px 60px rgba(15, 23, 42, 0.08);
+  max-width: 820px;
+  padding: 32px;
+  background: #fffded;
+  border: 5px solid #000;
+  box-shadow: 8px 8px 0 #000;
 }
 
 .app-header {
-  margin-bottom: 24px;
+  margin-bottom: 28px;
+}
+
+.badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 8px 16px;
+  color: #000;
+  background: #ffeb3b;
+  border: 4px solid #000;
+  border-radius: 999px;
+  margin-bottom: 18px;
+  width: fit-content;
 }
 
 .app-header h1 {
   margin: 0;
-  font-size: clamp(2rem, 2.5vw, 2.75rem);
+  font-size: clamp(2.5rem, 4vw, 3.5rem);
 }
 
 .app-header p {
-  margin: 10px 0 0;
-  color: #475569;
+  margin: 16px 0 0;
+  font-size: 1rem;
+  max-width: 680px;
+  line-height: 1.6;
 }
 
 .expense-form,
 .expense-card {
-  background: #f8fafc;
-  border-radius: 16px;
-  border: 1px solid #e2e8f0;
-  padding: 18px;
+  background: #ffffff;
+  border: 4px solid #000;
+  padding: 24px;
+  border-radius: 24px;
+  box-shadow: 6px 6px 0 #000;
 }
 
 .expense-form {
-  margin-bottom: 20px;
+  margin-bottom: 26px;
 }
 
 .field-row {
   display: grid;
-  gap: 8px;
-  margin-bottom: 14px;
+  gap: 18px;
+  margin-bottom: 20px;
+}
+
+.half-grid {
+  grid-template-columns: 1fr 1fr;
 }
 
 .field-row label {
+  display: block;
+  margin-bottom: 10px;
   font-size: 0.95rem;
-  font-weight: 600;
+  letter-spacing: 0.02em;
 }
 
-.field-row input {
-  border: 1px solid #cbd5e1;
-  border-radius: 12px;
-  padding: 10px 12px;
-  font-size: 1rem;
+input {
+  width: 100%;
+  border: 3px solid #000;
+  border-radius: 16px;
+  padding: 16px 18px;
+  background: #fffbe4;
+}
+
+.date-picker {
+  position: relative;
+}
+
+.date-picker-toggle {
+  width: 100%;
+  border: 3px solid #000;
+  border-radius: 16px;
+  padding: 16px 18px;
+  text-align: left;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: #f7f2e8;
+  cursor: pointer;
+}
+
+.date-picker-chevron {
+  font-size: 1.1rem;
+}
+
+.calendar-popup {
+  position: absolute;
+  margin-top: 14px;
+  z-index: 10;
+  width: 100%;
+  background: #fff;
+  border: 4px solid #000;
+  border-radius: 24px;
+  padding: 18px;
+  box-shadow: 8px 8px 0 #000;
+}
+
+.calendar-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 16px;
+}
+
+.calendar-title {
+  font-size: 0.95rem;
+  font-weight: 700;
+}
+
+.calendar-nav {
+  background: #ffeb3b;
+  border: 3px solid #000;
+  border-radius: 14px;
+  padding: 10px 14px;
+  cursor: pointer;
+}
+
+.calendar-grid {
+  display: grid;
+  grid-template-columns: repeat(7, minmax(0, 1fr));
+  gap: 8px;
+}
+
+.calendar-cell {
+  min-height: 48px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.label-cell {
+  color: #111;
+  font-size: 0.85rem;
+  text-transform: uppercase;
+}
+
+.empty-cell {
+  visibility: hidden;
+}
+
+.day-cell {
+  border: 3px solid #000;
+  border-radius: 16px;
+  background: #f7f2e8;
+  cursor: pointer;
+  font-size: 0.95rem;
+}
+
+.day-cell:hover {
+  background: #ffeb3b;
+}
+
+.selected-day {
+  background: #a4f4c0;
+  border-color: #000;
 }
 
 .primary-button,
-.danger-button {
-  border: none;
-  border-radius: 12px;
-  cursor: pointer;
+.danger-button,
+.secondary-button {
+  border: 3px solid #000;
+  border-radius: 18px;
+  padding: 18px 20px;
+  font-size: 1rem;
   font-weight: 700;
-  padding: 12px 16px;
+  cursor: pointer;
 }
 
-.primary-button {
-  background: #4338ca;
-  color: white;
+.large-button {
   width: 100%;
 }
 
+.primary-button {
+  background: #ffeb3b;
+  color: #000;
+}
+
 .danger-button {
-  background: #ef4444;
-  color: white;
+  background: #ff7fa4;
+  color: #000;
+}
+
+.secondary-button {
+  background: #d6d6d6;
+  color: #000;
 }
 
 .expense-list {
   display: grid;
-  gap: 14px;
+  gap: 18px;
 }
 
 .expense-card {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
+  display: grid;
   gap: 16px;
+  grid-template-columns: 1fr auto;
+  align-items: center;
 }
 
 .expense-card h2 {
-  margin: 0 0 6px;
-  font-size: 1rem;
+  margin: 8px 0 0;
+  font-size: 1.15rem;
 }
 
-.expense-card p {
-  margin: 0;
-  color: #64748b;
+.chip {
+  display: inline-flex;
+  padding: 8px 12px;
+  border: 3px solid #000;
+  border-radius: 999px;
+  background: #cffafe;
+  font-size: 0.85rem;
 }
 
 .expense-details {
   display: grid;
   gap: 10px;
-  text-align: right;
+  justify-items: end;
 }
 
-.status-message,
-.error-message {
+.expense-value {
+  font-size: 1.35rem;
+  letter-spacing: 0.02em;
+}
+
+.status-panel,
+.error-banner {
   margin: 20px 0;
-  padding: 14px 16px;
-  border-radius: 14px;
+  padding: 22px 24px;
+  border: 4px solid #000;
+  border-radius: 24px;
+  background: #fff;
 }
 
-.status-message {
-  background: #eff6ff;
-  color: #1e3a8a;
+.status-panel {
+  color: #050505;
 }
 
-.error-message {
-  background: #fee2e2;
-  color: #b91c1c;
+.error-banner {
+  background: #ffe4e4;
+  color: #000;
+}
+
+.modal-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.25);
+  display: grid;
+  place-items: center;
+  padding: 24px;
+}
+
+.modal-panel {
+  width: min(520px, 100%);
+  background: #fff;
+  border: 5px solid #000;
+  border-radius: 24px;
+  padding: 30px;
+  box-shadow: 8px 8px 0 #000;
+}
+
+.modal-panel strong {
+  display: block;
+  margin-bottom: 14px;
+  font-size: 1.3rem;
+}
+
+.modal-panel p {
+  margin: 0 0 24px;
+  line-height: 1.7;
+}
+
+.modal-actions {
+  display: flex;
+  gap: 14px;
+  flex-wrap: wrap;
 }

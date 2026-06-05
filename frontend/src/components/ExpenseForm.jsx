@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import DatePicker from './DatePicker';
 
 function ExpenseForm({ onSave }) {
   const [description, setDescription] = useState('');
@@ -34,28 +35,25 @@ function ExpenseForm({ onSave }) {
           placeholder="e.g. Coffee, groceries"
         />
       </div>
-      <div className="field-row">
-        <label htmlFor="amount">Amount</label>
-        <input
-          id="amount"
-          type="number"
-          value={amount}
-          onChange={(event) => setAmount(event.target.value)}
-          step="0.01"
-          min="0"
-          placeholder="0.00"
-        />
+      <div className="field-row half-grid">
+        <div>
+          <label htmlFor="amount">Amount</label>
+          <input
+            id="amount"
+            type="number"
+            value={amount}
+            onChange={(event) => setAmount(event.target.value)}
+            step="0.01"
+            min="0"
+            placeholder="0.00"
+          />
+        </div>
+        <div>
+          <label>Date</label>
+          <DatePicker selectedDate={date} onDateChange={setDate} />
+        </div>
       </div>
-      <div className="field-row">
-        <label htmlFor="date">Date</label>
-        <input
-          id="date"
-          type="date"
-          value={date}
-          onChange={(event) => setDate(event.target.value)}
-        />
-      </div>
-      <button type="submit" className="primary-button">
+      <button type="submit" className="primary-button large-button">
         Add Expense
       </button>
     </form>

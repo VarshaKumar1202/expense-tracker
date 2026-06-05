@@ -1,4 +1,4 @@
-function ExpenseList({ expenses, onDelete }) {
+function ExpenseList({ expenses, onRequestDelete }) {
   if (!expenses.length) {
     return <p className="status-message">No expenses added yet.</p>;
   }
@@ -8,12 +8,12 @@ function ExpenseList({ expenses, onDelete }) {
       {expenses.map((expense) => (
         <article className="expense-card" key={expense.id}>
           <div>
+            <div className="chip">{expense.date}</div>
             <h2>{expense.description}</h2>
-            <p>{expense.date}</p>
           </div>
           <div className="expense-details">
-            <span>${expense.amount.toFixed(2)}</span>
-            <button className="danger-button" onClick={() => onDelete(expense.id)}>
+            <span className="expense-value">${expense.amount.toFixed(2)}</span>
+            <button className="danger-button" onClick={() => onRequestDelete(expense)}>
               Delete
             </button>
           </div>

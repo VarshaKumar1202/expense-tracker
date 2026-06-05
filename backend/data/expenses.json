@@ -1,14 +1,24 @@
 [
   {
-    "id": "1",
-    "description": "Coffee",
-    "amount": 3.5,
-    "date": "2026-06-05"
+    "id": "1780685510868",
+    "name": "Wi-Fi",
+    "category": "Bills",
+    "date": "2026-06-02",
+    "amount": 250
   },
   {
-    "id": "2",
-    "description": "Office supplies",
-    "amount": 24.99,
-    "date": "2026-06-04"
+    "id": "1780685469353",
+    "name": "Grocery",
+    "category": "Housing",
+    "date": "2026-06-01",
+    "amount": 35
+  },
+  {
+    "id": "1780685419766",
+    "name": "Coffee",
+    "category": "Food",
+    "date": "2026-06-05",
+    "amount": 5,
+    "note": "Starbucks"
   }
 ]

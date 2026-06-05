@@ -18,24 +18,26 @@ function saveExpenses(expenses) {
   fs.writeFileSync(dataFile, JSON.stringify(expenses, null, 2));
 }
 
-let expenses = loadExpenses();
-
 router.get('/', (req, res) => {
+  const expenses = loadExpenses();
   res.json(expenses);
 });
 
 router.post('/', (req, res) => {
-  const { description, amount, date } = req.body;
+  const { name, category, date, amount, note } = req.body;
 
-  if (!description || typeof amount !== 'number' || !date) {
-    return res.status(400).json({ error: 'description, amount, and date are required' });
+  if (!name || !category || typeof amount !== 'number' || !date) {
+    return res.status(400).json({ error: 'name, category, amount, and date are required' });
   }
 
+  const expenses = loadExpenses();
   const newExpense = {
     id: Date.now().toString(),
-    description,
-    amount,
+    name,
+    category,
     date,
+    amount,
+    note,
   };
 
   expenses.unshift(newExpense);
@@ -44,8 +46,39 @@ router.post('/', (req, res) => {
   res.status(201).json(newExpense);
 });
 
+router.put('/:id', (req, res) => {
+  const { id } = req.params;
+  const { name, category, date, amount, note } = req.body;
+
+  if (!name || !category || typeof amount !== 'number' || !date) {
+    return res.status(400).json({ error: 'name, category, amount, and date are required' });
+  }
+
+  const expenses = loadExpenses();
+  const index = expenses.findIndex((expense) => expense.id === id);
+
+  if (index === -1) {
+    return res.status(404).json({ error: 'Expense not found' });
+  }
+
+  const updatedExpense = {
+    ...expenses[index],
+    name,
+    category,
+    date,
+    amount,
+    note,
+  };
+
+  expenses[index] = updatedExpense;
+  saveExpenses(expenses);
+
+  res.json(updatedExpense);
+});
+
 router.delete('/:id', (req, res) => {
   const { id } = req.params;
+  const expenses = loadExpenses();
   const index = expenses.findIndex((expense) => expense.id === id);
 
   if (index === -1) {

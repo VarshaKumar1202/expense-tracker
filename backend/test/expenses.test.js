@@ -31,9 +31,11 @@ test('GET /api/expenses returns an array', async () => {
 
 test('POST /api/expenses creates a new expense', async () => {
   const newExpense = {
-    description: 'Test item',
+    name: 'Test item',
+    category: 'Other',
     amount: 12.5,
     date: '2026-06-05',
+    note: 'Unit test expense',
   };
 
   const response = await request(app).post('/api/expenses').send(newExpense);
@@ -44,4 +46,57 @@ test('POST /api/expenses creates a new expense', async () => {
 
   const listResponse = await request(app).get('/api/expenses');
   expect(listResponse.body).toHaveLength(1);
+});
+
+test('PUT /api/expenses/:id updates an expense', async () => {
+  const createResponse = await request(app).post('/api/expenses').send({
+    name: 'Initial item',
+    category: 'Food',
+    amount: 10,
+    date: '2026-06-05',
+  });
+
+  const expenseId = createResponse.body.id;
+  const updateResponse = await request(app)
+    .put(`/api/expenses/${expenseId}`)
+    .send({
+      name: 'Updated item',
+      category: 'Food',
+      amount: 15,
+      date: '2026-06-06',
+    });
+
+  expect(updateResponse.statusCode).toBe(200);
+  expect(updateResponse.body.name).toBe('Updated item');
+  expect(updateResponse.body.amount).toBe(15);
+});
+
+test('DELETE /api/expenses/:id removes an expense', async () => {
+  const createResponse = await request(app).post('/api/expenses').send({
+    name: 'To remove',
+    category: 'Bills',
+    amount: 5,
+    date: '2026-06-05',
+  });
+
+  const expenseId = createResponse.body.id;
+  const deleteResponse = await request(app).delete(`/api/expenses/${expenseId}`);
+
+  expect(deleteResponse.statusCode).toBe(200);
+  expect(deleteResponse.body.id).toBe(expenseId);
+
+  const listResponse = await request(app).get('/api/expenses');
+  expect(listResponse.body).toHaveLength(0);
+});
+
+test('POST /api/expenses returns 400 for invalid payload', async () => {
+  const response = await request(app).post('/api/expenses').send({
+    name: '',
+    category: '',
+    amount: 'not-a-number',
+    date: 'invalid-date',
+  });
+
+  expect(response.statusCode).toBe(400);
+  expect(response.body.error).toBeDefined();
 });

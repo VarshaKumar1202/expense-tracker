@@ -57,7 +57,7 @@ console.log(
 );
 
 app.use(express.json());
-app.use('/api/expenses', expensesRouter);
+app.use('/expenses', expensesRouter);
 
 app.get('/', (req, res) => {
   res.json({ message: 'Expense Tracker API', endpoints: ['/api/expenses', '/health'] });

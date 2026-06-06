@@ -5,17 +5,58 @@ const expensesRouter = require('./routes/expenses');
 const app = express();
 const PORT = process.env.PORT || 4000;
 
-// Configure CORS using an environment variable `FRONTEND_URL` (set this to your Vercel URL).
-// In production set FRONTEND_URL=https://your-frontend-project.vercel.app
-// During development, if FRONTEND_URL is not set, allow all origins.
-if (process.env.FRONTEND_URL) {
+// Configure CORS using an environment variable `FRONTEND_URL`.
+// Set one or more allowed frontend origins, comma-separated.
+// Example:
+// FRONTEND_URL=https://example.com
+// FRONTEND_URL=https://example.com,https://preview.example.vercel.app
+// FRONTEND_URL=https://*.vercel.app
+// You can also set FRONTEND_URL=* to allow all origins.
+const rawFrontendUrls = process.env.FRONTEND_URL || '';
+const frontendOrigins = rawFrontendUrls
+  .split(',')
+  .map((value) => value.trim())
+  .filter(Boolean);
+
+function normalizeOrigin(value) {
+  return value.replace(/\/+$|\s+/g, '');
+}
+
+function originMatchesPattern(origin, pattern) {
+  const normalizedPattern = normalizeOrigin(pattern);
+  if (normalizedPattern === '*') {
+    return true;
+  }
+
+  if (normalizedPattern.includes('*')) {
+    const escaped = normalizedPattern.replace(/[.+?^${}()|[\]\\]/g, '\\$&');
+    const regexString = `^${escaped.replace(/\\\*/g, '.*')}$`;
+    return new RegExp(regexString).test(origin);
+  }
+
+  return normalizeOrigin(origin) === normalizedPattern;
+}
+
+if (frontendOrigins.length > 0) {
   app.use(
     cors({
-      origin: process.env.FRONTEND_URL,
+      origin(origin, callback) {
+        if (!origin) {
+          return callback(null, true);
+        }
+
+        const normalizedOrigin = normalizeOrigin(origin);
+        const allowed = frontendOrigins.some((pattern) => originMatchesPattern(normalizedOrigin, pattern));
+        if (allowed) {
+          return callback(null, true);
+        }
+
+        callback(new Error(`CORS blocked for origin: ${origin}`));
+      },
       credentials: true,
     })
   );
-  console.log('CORS enabled for:', process.env.FRONTEND_URL);
+  console.log('CORS allowed for:', frontendOrigins.join(', '));
 } else {
   app.use(cors());
   console.log('CORS enabled for all origins (development)');

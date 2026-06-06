@@ -7,7 +7,16 @@ export interface Expense {
   note?: string;
 }
 
-const API_BASE = import.meta.env.VITE_API_BASE || "/api";
+// Vite exposes env vars prefixed with `VITE_` to the client. Set `VITE_API_BASE` in Vercel
+// to your deployed backend URL (for example, https://expense-tracker-api.onrender.com).
+// Fallback to local dev proxy path `/api` when the env var is not set.
+// Accept several common env var names so deployments are tolerant to naming.
+// Preferred name: VITE_API_BASE
+const API_BASE =
+  import.meta.env.VITE_API_BASE ||
+  import.meta.env.VITE_API_BASE_URL ||
+  import.meta.env.VITE_API_URL ||
+  "/api";
 
 async function checkResponse(response: Response) {
   if (!response.ok) {

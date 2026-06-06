@@ -8,3 +8,4 @@ node_modules/
 # Production builds
 dist/
 build/
+README.md

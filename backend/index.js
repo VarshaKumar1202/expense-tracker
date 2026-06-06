@@ -5,13 +5,7 @@ const expensesRouter = require('./routes/expenses');
 const app = express();
 const PORT = process.env.PORT || 4000;
 
-// Configure CORS using an environment variable `FRONTEND_URL`.
-// Set one or more allowed frontend origins, comma-separated.
-// Example:
-// FRONTEND_URL=https://example.com
-// FRONTEND_URL=https://example.com,https://preview.example.vercel.app
-// FRONTEND_URL=https://*.vercel.app
-// You can also set FRONTEND_URL=* to allow all origins.
+// Parse comma-separated string targets cleanly
 const rawFrontendUrls = process.env.FRONTEND_URL || '';
 const frontendOrigins = rawFrontendUrls
   .split(',')
@@ -24,9 +18,7 @@ function normalizeOrigin(value) {
 
 function originMatchesPattern(origin, pattern) {
   const normalizedPattern = normalizeOrigin(pattern);
-  if (normalizedPattern === '*') {
-    return true;
-  }
+  if (normalizedPattern === '*') return true;
 
   if (normalizedPattern.includes('*')) {
     const escaped = normalizedPattern.replace(/[.+?^${}()|[\]\\]/g, '\\$&');
@@ -37,40 +29,40 @@ function originMatchesPattern(origin, pattern) {
   return normalizeOrigin(origin) === normalizedPattern;
 }
 
-if (frontendOrigins.length > 0) {
-  app.use(
-    cors({
-      origin(origin, callback) {
-        if (!origin) {
-          return callback(null, true);
-        }
+// Robust CORS initialization block
+app.use(
+  cors({
+    origin(origin, callback) {
+      // Allow server-to-server or postman REST queries seamlessly
+      if (!origin) return callback(null, true);
 
-        const normalizedOrigin = normalizeOrigin(origin);
-        const allowed = frontendOrigins.some((pattern) => originMatchesPattern(normalizedOrigin, pattern));
-        if (allowed) {
-          return callback(null, true);
-        }
+      const normalizedOrigin = normalizeOrigin(origin);
+      
+      // If FRONTEND_URL environment configuration is explicitly empty, permit access for dev
+      if (frontendOrigins.length === 0) return callback(null, true);
 
-        callback(new Error(`CORS blocked for origin: ${origin}`));
-      },
-      credentials: true,
-    })
-  );
-  console.log('CORS allowed for:', frontendOrigins.join(', '));
-} else {
-  app.use(cors());
-  console.log('CORS enabled for all origins (development)');
-}
+      const allowed = frontendOrigins.some((pattern) => originMatchesPattern(normalizedOrigin, pattern));
+      if (allowed) return callback(null, true);
+
+      callback(new Error(`CORS blocked for origin: ${origin}`));
+    },
+    credentials: true,
+  })
+);
+
+console.log(
+  frontendOrigins.length > 0 
+    ? `CORS structured origins: ${frontendOrigins.join(', ')}` 
+    : 'CORS permissive default initialization operational.'
+);
 
 app.use(express.json());
 app.use('/api/expenses', expensesRouter);
 
-// Root route: provide a friendly message and link to the API
 app.get('/', (req, res) => {
   res.json({ message: 'Expense Tracker API', endpoints: ['/api/expenses', '/health'] });
 });
 
-// Health check for Render or other platforms
 app.get('/health', (req, res) => {
   res.json({ status: 'ok' });
 });
